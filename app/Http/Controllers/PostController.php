@@ -14,7 +14,6 @@ class PostController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -22,11 +21,18 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request): RedirectResponse
     {
-        Post::create($request->validated());
+        $post = Post::create([
+            ...$request->validated(),
+            "user_id" => $request->user()->id,
+        ]);
 
-        return back();
+        return back()->with('toast', [
+            "type" => "success",
+            "message" => "Post successfully created",
+            "description" => "$post->title is now available."
+        ]);
     }
-    
+
     /**
      * Display the specified resource.
      */

@@ -32,7 +32,6 @@ type Data = {
 }
 
 export default function Dashboard({ auth, message, posts }: PageProps<Data>) {
-    console.log(posts)
     return (
         <AuthenticatedLayout
             user={auth.user}

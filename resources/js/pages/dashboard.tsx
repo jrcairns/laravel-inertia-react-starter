@@ -52,9 +52,10 @@ export default function Dashboard({ auth, message, posts }: PageProps<Data>) {
                         </div>
                         <div className="bg-background overflow-hidden shadow-sm sm:rounded-lg">
                             <div className="p-6 space-y-4">
+                                <h2 className='font-medium'>Your Posts</h2>
                                 <ul className="flex flex-col">
                                     {posts.data.map(post => (
-                                        <li className='border-b last:border-b-0 py-4 first:pt-0 last:pb-0' key={post.id}>
+                                        <li className='border-b py-4 first:border-t' key={post.id}>
                                             <p className='font-medium'>{post.title}</p>
                                             <p className='text-muted-foreground'>{post.content}</p>
                                         </li>

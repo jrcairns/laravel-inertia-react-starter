@@ -42,7 +42,7 @@ Route::middleware(['auth', 'verified', 'subscribed'])->group(function () {
             "message" => "Hello World!",
             "posts" => \App\Models\Post::orderBy("created_at", "desc")
                 ->paginate(2)
-                ->onEachSide(2)
+                ->onEachSide(1)
                 ->through(function (Post $post) {
                     return [
                         'id' => $post->id,

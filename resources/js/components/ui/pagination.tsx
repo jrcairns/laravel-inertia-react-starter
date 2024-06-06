@@ -7,6 +7,7 @@ import {
 
 import { cn } from "@/lib/utils"
 import { ButtonProps, buttonVariants } from "@/components/ui/button"
+import { Link } from "@inertiajs/react"
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -41,7 +42,7 @@ PaginationItem.displayName = "PaginationItem"
 type PaginationLinkProps = {
   isActive?: boolean
 } & Pick<ButtonProps, "size"> &
-  React.ComponentProps<"a">
+  Omit<React.ComponentProps<typeof Link>, "size">
 
 const PaginationLink = ({
   className,
@@ -49,7 +50,7 @@ const PaginationLink = ({
   size = "icon",
   ...props
 }: PaginationLinkProps) => (
-  <a
+  <Link
     aria-current={isActive ? "page" : undefined}
     className={cn(
       buttonVariants({

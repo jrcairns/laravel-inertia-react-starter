@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'product_id' => 'prod_QAOUqxZlzgIunc',
-    'price_id' => 'price_1PK3hDF998BFbxKXBwl5nGAz'
+    'product_id' => env('STRIPE_PRODUCT_ID'),
+    'price_id' => env('STRIPE_PRICE_ID')
 ];

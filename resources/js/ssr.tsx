@@ -16,9 +16,9 @@ createServer((page) =>
         setup: ({ App, props }) => {
             global.route<RouteName> = (name, params, absolute) =>
                 route(name, params as any, absolute, {
-                    // @ts-expect-error
+                    // @ts-ignore-error
                     ...page.props.ziggy,
-                    // @ts-expect-error
+                    // @ts-ignore-error
                     location: new URL(page.props.ziggy.location),
                 });
 

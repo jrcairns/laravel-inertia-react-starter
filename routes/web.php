@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\BillingPortalController;
+use App\Http\Controllers\ManageSubscriptionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Middleware\BillingMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -9,6 +12,7 @@ use Inertia\Inertia;
 /*
 *   Render landing page with component props
 */
+
 Route::get('/', function () {
     return Inertia::render('welcome', [
         'canLogin' => Route::has('login'),
@@ -27,7 +31,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             "message" => "Hello World!",
             "posts" => \App\Models\Post::orderBy("created_at", "desc")->get()
         ]);
-    })->name('dashboard');
+    })->middleware('subscribed')->name('dashboard');
+
+
+    Route::get('/subscription', ManageSubscriptionController::class)->name('subscription');
+    Route::get('/billing-portal', BillingPortalController::class)->name('billing-portal');
 
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 });
@@ -41,4 +49,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

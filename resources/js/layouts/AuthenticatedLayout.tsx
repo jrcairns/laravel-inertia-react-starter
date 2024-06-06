@@ -75,6 +75,9 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                                             <Link href={route('profile.edit')}>Profile</Link>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem>
+                                            <a href={route('billing-portal')} target='_blank'>Manage Billing</a>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
                                             <Link href={route('logout')} method="post" as="button">Log out</Link>
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>

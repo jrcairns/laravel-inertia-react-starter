@@ -5,6 +5,7 @@ use App\Http\Controllers\ManageSubscriptionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Middleware\BillingMiddleware;
+use App\Models\Post;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,18 +27,31 @@ Route::get('/', function () {
 *   All routes that require auth and verification
 */
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('dashboard', [
-            "message" => "Hello World!",
-            "posts" => \App\Models\Post::orderBy("created_at", "desc")->get()
-        ]);
-    })->middleware('subscribed')->name('dashboard');
-
-
     Route::get('/subscription', ManageSubscriptionController::class)->name('subscription');
     Route::get('/billing-portal', BillingPortalController::class)->name('billing-portal');
 
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+});
+
+/*
+*   All routes that require auth, verification, and subscription
+*/
+Route::middleware(['auth', 'verified', 'subscribed'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('dashboard', [
+            "message" => "Hello World!",
+            "posts" => \App\Models\Post::orderBy("created_at", "desc")
+                ->paginate(2)
+                ->onEachSide(2)
+                ->through(function (Post $post) {
+                    return [
+                        'id' => $post->id,
+                        'title' => $post->title,
+                        'description' => $post->description
+                    ];
+                })
+        ]);
+    })->name('dashboard');
 });
 
 /*

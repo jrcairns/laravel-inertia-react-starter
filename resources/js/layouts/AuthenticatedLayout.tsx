@@ -1,6 +1,7 @@
 import ApplicationLogo from '@/components/application-logo';
 import NavLink from '@/components/nav-link';
 import ResponsiveNavLink from '@/components/responsive-nav-link';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Toaster } from '@/components/ui/toaster';
@@ -18,7 +19,7 @@ type Toast = {
 
 export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-    const page = usePage<{ toast: Toast }>()
+    const page = usePage<{ toast: Toast; subscribed: boolean }>()
     const { toast } = useToast()
 
     useEffect(() => {
@@ -54,10 +55,13 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                             <div className="ms-3 relative">
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
-                                        <Button variant="outline">
-                                            {user.name}
+                                        <Button className='space-x-2' variant="outline">
+                                            <span>{user.name}</span>
+                                            {page.props.subscribed && (
+                                                <Badge>PRO</Badge>
+                                            )}
                                             <svg
-                                                className="ms-2 -me-0.5 h-4 w-4"
+                                                className="h-4 w-4"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 20 20"
                                                 fill="currentColor"

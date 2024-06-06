@@ -9,7 +9,7 @@
         "target": "ESNext",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "noEmit": false,
+        "noEmit": true,
         "noEmitOnError": false,
         "paths": {
             "@/*": [

@@ -5,6 +5,9 @@ export interface User {
     name: string;
     email: string;
     email_verified_at: string;
+    subscriptions: {
+        stripe_status: string
+    }[]
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {

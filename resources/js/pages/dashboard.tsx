@@ -2,9 +2,11 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import AuthenticatedLayout from '@/layouts/AuthenticatedLayout';
+import { cn } from '@/lib/utils';
 import { PageProps } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler, useRef } from 'react';
 
 type Post = {
@@ -13,12 +15,24 @@ type Post = {
     content: string;
 }
 
+type PaginationLink = {
+    url: string
+    active: boolean
+    label: string
+}
+
 type Data = {
     message: string;
-    posts: Post[]
+    posts: {
+        data: Post[]
+        current_page: number
+        last_page: number
+        links: PaginationLink[]
+    }
 }
 
 export default function Dashboard({ auth, message, posts }: PageProps<Data>) {
+    console.log(posts)
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -38,15 +52,42 @@ export default function Dashboard({ auth, message, posts }: PageProps<Data>) {
                             </div>
                         </div>
                         <div className="bg-background overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className="p-6">
+                            <div className="p-6 space-y-4">
                                 <ul className="flex flex-col">
-                                    {posts.map(post => (
+                                    {posts.data.map(post => (
                                         <li className='border-b last:border-b-0 py-4 first:pt-0 last:pb-0' key={post.id}>
                                             <p className='font-medium'>{post.title}</p>
                                             <p className='text-muted-foreground'>{post.content}</p>
                                         </li>
                                     ))}
                                 </ul>
+                                <Pagination>
+                                    <PaginationContent>
+                                        <PaginationItem>
+                                            <PaginationPrevious
+                                                className={cn({ "pointer-events-none opacity-50": posts.current_page === 1 })}
+                                                href={posts.links[0].url}
+                                            />
+                                        </PaginationItem>
+                                        {posts.links.slice(1, -1).map((link, index: number) => (
+                                            link.label === "..." ? (
+                                                <PaginationItem key={index}>
+                                                    <PaginationEllipsis />
+                                                </PaginationItem>
+                                            ) : (
+                                                <PaginationItem key={index}>
+                                                    <PaginationLink isActive={link.active} href={link.url}>{link.label}</PaginationLink>
+                                                </PaginationItem>
+                                            )
+                                        ))}
+                                        <PaginationItem>
+                                            <PaginationNext
+                                                className={cn({ "pointer-events-none opacity-50": posts.current_page === posts.last_page })}
+                                                href={posts.links[posts.links.length - 1].url}
+                                            />
+                                        </PaginationItem>
+                                    </PaginationContent>
+                                </Pagination>
                             </div>
                         </div>
                     </div>
@@ -77,7 +118,7 @@ function CreatePostForm() {
 
         post(route('posts.store'), {
             preserveScroll: true,
-            onFinish: () => {
+            onSuccess: () => {
                 reset()
                 titleRef.current?.focus()
             },

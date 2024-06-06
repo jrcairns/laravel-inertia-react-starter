@@ -39,7 +39,14 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
-            'toast' => session('toast')
+            'toast' => session('toast'),
+            'subscribed' => function () use ($request) {
+                if ($request->user()) {
+                    return $request->user()->subscriptions()->active()->count() > 0;
+                }
+
+                return false;
+            },
         ];
     }
 }

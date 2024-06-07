@@ -4,6 +4,7 @@ import createServer from '@inertiajs/react/server';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { route } from '../../vendor/tightenco/ziggy';
 import { RouteName } from 'ziggy-js';
+import { ThemeProvider } from 'next-themes';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -22,7 +23,7 @@ createServer((page) =>
                     location: new URL(page.props.ziggy.location),
                 });
 
-            return <App {...props} />;
+            return <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange><App {...props} /></ThemeProvider>;
         },
     })
 );

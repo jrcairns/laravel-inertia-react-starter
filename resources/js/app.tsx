@@ -13,11 +13,11 @@ createInertiaApp({
     resolve: (name) => resolvePageComponent(`./pages/${name}.tsx`, import.meta.glob('./pages/**/*.tsx')),
     setup({ el, App, props }) {
         if (import.meta.env.DEV) {
-            createRoot(el).render(<ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange><App {...props} /></ThemeProvider>);
+            createRoot(el).render(<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange><App {...props} /></ThemeProvider>);
             return
         }
 
-        hydrateRoot(el, <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange><App {...props} /></ThemeProvider>);
+        hydrateRoot(el, <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange><App {...props} /></ThemeProvider>);
     },
     progress: {
         color: '#4B5563',

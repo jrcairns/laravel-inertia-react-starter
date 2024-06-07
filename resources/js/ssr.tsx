@@ -23,7 +23,7 @@ createServer((page) =>
                     location: new URL(page.props.ziggy.location),
                 });
 
-            return <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange><App {...props} /></ThemeProvider>;
+            return <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange><App {...props} /></ThemeProvider>;
         },
     })
 );

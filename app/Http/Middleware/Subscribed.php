@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class BillingMiddleware
+class Subscribed
 {
     /**
      * Handle an incoming request.

@@ -16,10 +16,6 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
-        $middleware->alias([
-            'subscribed' => \App\Http\Middleware\BillingMiddleware::class,
-            'unsubscribed' => \App\Http\Middleware\Unsubscribed::class,
-        ]);
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {

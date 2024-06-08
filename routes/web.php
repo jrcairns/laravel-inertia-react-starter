@@ -4,7 +4,8 @@ use App\Http\Controllers\BillingPortalController;
 use App\Http\Controllers\ManageSubscriptionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
-use App\Http\Middleware\BillingMiddleware;
+use App\Http\Middleware\Subscribed;
+use App\Http\Middleware\Unsubscribed;
 use App\Models\Post;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,14 +36,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 /*
 *   All routes that require auth and verification and no subscription
 */
-Route::middleware(['auth', 'verified', 'unsubscribed'])->group(function () {
+Route::middleware(['auth', 'verified', Unsubscribed::class])->group(function () {
     Route::get('/subscription', ManageSubscriptionController::class)->name('subscription');
 });
 
 /*
 *   All routes that require auth, verification, and subscription
 */
-Route::middleware(['auth', 'verified', 'subscribed'])->group(function () {
+Route::middleware(['auth', 'verified', Subscribed::class])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('dashboard', [
             "message" => "Hello World!",

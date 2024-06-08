@@ -22,7 +22,6 @@ STRIPE_SECRET=
 STRIPE_WEBHOOK_SECRET=
 
 STRIPE_PRODUCT_ID=
-STRIPE_PRICE_ID=
 ```
 
 ### Generate an APP_KEY for your `.env` file

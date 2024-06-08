@@ -1,5 +1,6 @@
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
@@ -41,26 +42,27 @@ export default function Dashboard({ auth, message, posts }: PageProps<Data>) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 grid gap-4">
-                    <div className="bg-background overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6">{message}</div>
-                    </div>
+                    <Card>
+                        <CardContent>{message}</CardContent>
+                    </Card>
                     <div className="grid lg:grid-cols-2 gap-4 items-start">
-                        <div className="bg-background overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className="p-6">
-                                <CreatePostForm />
-                            </div>
-                        </div>
-                        <div className="bg-background overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className="p-6 space-y-4">
-                                <h2 className='font-medium'>Your Posts</h2>
+                        <CreatePostForm />
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Your Posts</CardTitle>
+                                <CardDescription>Lorem ipsum dolor sit amet consectetur adipisicing elit.</CardDescription>
+                            </CardHeader>
+                            <CardContent className='p-0'>
                                 <ul className="flex flex-col">
                                     {posts.data.map(post => (
-                                        <li className='border-b py-4 first:border-t' key={post.id}>
+                                        <li className='px-6 py-4 border-b last:border-b-0' key={post.id}>
                                             <p className='font-medium'>{post.title}</p>
                                             <p className='text-muted-foreground'>{post.content}</p>
                                         </li>
                                     ))}
                                 </ul>
+                            </CardContent>
+                            <CardFooter>
                                 <Pagination>
                                     <PaginationContent>
                                         <PaginationItem>
@@ -88,8 +90,8 @@ export default function Dashboard({ auth, message, posts }: PageProps<Data>) {
                                         </PaginationItem>
                                     </PaginationContent>
                                 </Pagination>
-                            </div>
-                        </div>
+                            </CardFooter>
+                        </Card>
                     </div>
                 </div>
             </div>
@@ -126,34 +128,45 @@ function CreatePostForm() {
     };
 
     return (
-        <form className='space-y-6' onSubmit={storePost}>
-            <div className='space-y-1.5'>
-                <Label htmlFor="title">Title</Label>
+        <form onSubmit={storePost}>
+            <Card>
+                <CardHeader>
+                    <CardTitle>Create Post</CardTitle>
+                    <CardDescription>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, laborum?</CardDescription>
+                </CardHeader>
+                <CardContent className='space-y-4'>
+                    <div className='space-y-1.5'>
+                        <Label htmlFor="title">Title</Label>
 
-                <Input
-                    ref={titleRef}
-                    id="title"
-                    name="title"
-                    value={data.title}
-                    onChange={(e) => setData('title', e.target.value)}
-                    className="block w-full"
-                />
+                        <Input
+                            ref={titleRef}
+                            id="title"
+                            name="title"
+                            value={data.title}
+                            onChange={(e) => setData('title', e.target.value)}
+                            className="block w-full"
+                        />
 
-                <InputError message={errors.title} className="mt-2" />
-            </div>
-            <div className='space-y-1.5'>
-                <Label htmlFor="content">Content</Label>
-                <Input
-                    id="content"
-                    name="content"
-                    value={data.content}
-                    onChange={(e) => setData('content', e.target.value)}
-                    className="block w-full"
-                />
+                        <InputError message={errors.title} className="mt-2" />
+                    </div>
+                    <div className='space-y-1.5'>
+                        <Label htmlFor="content">Content</Label>
+                        <Input
+                            id="content"
+                            name="content"
+                            value={data.content}
+                            onChange={(e) => setData('content', e.target.value)}
+                            className="block w-full"
+                        />
 
-                <InputError message={errors.content} className="mt-2" />
-            </div>
-            <Button disabled={processing}>Create Post</Button>
+                        <InputError message={errors.content} className="mt-2" />
+                    </div>
+                </CardContent>
+                <CardFooter>
+                    <Button disabled={processing}>Create Post</Button>
+                </CardFooter>
+            </Card>
+
         </form>
     );
 }

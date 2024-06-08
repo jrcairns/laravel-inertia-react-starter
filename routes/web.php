@@ -27,10 +27,16 @@ Route::get('/', function () {
 *   All routes that require auth and verification
 */
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/subscription', ManageSubscriptionController::class)->name('subscription');
     Route::get('/billing-portal', BillingPortalController::class)->name('billing-portal');
 
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+});
+
+/*
+*   All routes that require auth and verification and no subscription
+*/
+Route::middleware(['auth', 'verified', 'unsubscribed'])->group(function () {
+    Route::get('/subscription', ManageSubscriptionController::class)->name('subscription');
 });
 
 /*

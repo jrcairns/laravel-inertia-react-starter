@@ -55,7 +55,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                             <div className="ms-3 relative">
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
-                                        <Button className='space-x-2' variant="outline">
+                                        <Button className='space-x-2 px-3' variant="outline">
                                             <span>{user.name}</span>
                                             {page.props.subscribed && (
                                                 <Badge>PRO</Badge>

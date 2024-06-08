@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->alias([
             'subscribed' => \App\Http\Middleware\BillingMiddleware::class,
+            'unsubscribed' => \App\Http\Middleware\Unsubscribed::class,
         ]);
         //
     })

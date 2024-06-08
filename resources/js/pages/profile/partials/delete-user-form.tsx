@@ -54,7 +54,7 @@ export default function DeleteUserForm({ className = '' }: { className?: string 
                                     enter your password to confirm you would like to permanently delete your account.
                                 </DialogDescription>
                             </DialogHeader>
-                            <div className='space-y-4' onSubmit={deleteUser}>
+                            <form className='space-y-4' onSubmit={deleteUser}>
                                 <div>
                                     <Label htmlFor="password" className="sr-only">Password</Label>
 
@@ -77,7 +77,7 @@ export default function DeleteUserForm({ className = '' }: { className?: string 
                                     </DialogClose>
                                     <Button disabled={processing} variant="destructive">Delete Account</Button>
                                 </DialogFooter>
-                            </div>
+                            </form>
                         </DialogContent>
                     </Dialog>
                 </CardFooter>

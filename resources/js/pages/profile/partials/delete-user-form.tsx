@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useRef } from 'react';
 
-export default function DeleteUserForm({ className = '' }: { className?: string }) {
+export default function DeleteUserForm() {
     const passwordInput = useRef<HTMLInputElement>(null);
 
     const {

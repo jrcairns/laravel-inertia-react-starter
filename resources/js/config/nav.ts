@@ -4,10 +4,6 @@ export const nav = [
         label: "Dashboard"
     },
     {
-        route: 'form.create',
-        label: "Create"
-    },
-    {
         route: 'profile.edit',
         label: "Profile"
     },

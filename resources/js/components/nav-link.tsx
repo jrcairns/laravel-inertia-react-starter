@@ -6,10 +6,10 @@ export default function NavLink({ active = false, className = '', children, ...p
         <Link
             {...props}
             className={
-                cn('inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out',
+                cn('transition-colors hover:text-foreground',
                     active
-                        ? 'border-primary'
-                        : 'border-transparent opacity-80 hover:opacity-100 hover:border-primary/80',
+                        ? 'text-foreground'
+                        : 'text-muted-foreground',
                     className
                 )
             }

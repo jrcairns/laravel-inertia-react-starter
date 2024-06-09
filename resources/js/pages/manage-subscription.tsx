@@ -60,7 +60,7 @@ export default function ManageSubscription({ auth, stripeKey, product }: PagePro
                                 <CardDescription>{product.description}</CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-primary/80 text-pretty">Instantly create and deploy custom forms with unique web URLs in seconds. Simplify your workflow and start tracking analytics effortlessly.</p>
+                                <p className="text-pretty text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus minima molestiae cupiditate!</p>
                                 <ul className="mt-6 space-y-2">
                                     <li className="flex items-center space-x-2">
                                         <CheckIcon className="h-3.5 w-3.5" />

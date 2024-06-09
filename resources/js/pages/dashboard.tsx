@@ -32,7 +32,7 @@ type Data = {
     }
 }
 
-export default function Dashboard({ auth, message, posts }: PageProps<Data>) {
+export default function Dashboard({ auth, message }: PageProps<Data>) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -45,128 +45,30 @@ export default function Dashboard({ auth, message, posts }: PageProps<Data>) {
                     <Card>
                         <CardContent>{message}</CardContent>
                     </Card>
-                    <div className="grid lg:grid-cols-2 gap-4 items-start">
-                        <CreatePostForm />
+                    {/* <div className="grid lg:grid-cols-2 gap-4 items-start">
                         <Card>
                             <CardHeader>
                                 <CardTitle>Your Posts</CardTitle>
                                 <CardDescription>Lorem ipsum dolor sit amet consectetur adipisicing elit.</CardDescription>
                             </CardHeader>
                             <CardContent className='p-0'>
-                                <ul className="flex flex-col">
-                                    {posts.data.map(post => (
-                                        <li className='px-6 py-4 border-b last:border-b-0' key={post.id}>
-                                            <p className='font-medium'>{post.title}</p>
-                                            <p className='text-muted-foreground'>{post.content}</p>
-                                        </li>
-                                    ))}
-                                </ul>
                             </CardContent>
                             <CardFooter>
-                                <Pagination>
-                                    <PaginationContent>
-                                        <PaginationItem>
-                                            <PaginationPrevious
-                                                className={cn({ "pointer-events-none opacity-50": posts.current_page === 1 })}
-                                                href={posts.links[0].url}
-                                            />
-                                        </PaginationItem>
-                                        {posts.links.slice(1, -1).map((link, index: number) => (
-                                            link.label === "..." ? (
-                                                <PaginationItem key={index}>
-                                                    <PaginationEllipsis />
-                                                </PaginationItem>
-                                            ) : (
-                                                <PaginationItem key={index}>
-                                                    <PaginationLink isActive={link.active} href={link.url}>{link.label}</PaginationLink>
-                                                </PaginationItem>
-                                            )
-                                        ))}
-                                        <PaginationItem>
-                                            <PaginationNext
-                                                className={cn({ "pointer-events-none opacity-50": posts.current_page === posts.last_page })}
-                                                href={posts.links[posts.links.length - 1].url}
-                                            />
-                                        </PaginationItem>
-                                    </PaginationContent>
-                                </Pagination>
                             </CardFooter>
                         </Card>
-                    </div>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Your Posts</CardTitle>
+                                <CardDescription>Lorem ipsum dolor sit amet consectetur adipisicing elit.</CardDescription>
+                            </CardHeader>
+                            <CardContent className='p-0'>
+                            </CardContent>
+                            <CardFooter>
+                            </CardFooter>
+                        </Card>
+                    </div> */}
                 </div>
             </div>
         </AuthenticatedLayout>
-    );
-}
-
-
-function CreatePostForm() {
-    const titleRef = useRef<HTMLInputElement>(null)
-
-    const {
-        data,
-        setData,
-        post,
-        processing,
-        reset,
-        errors,
-    } = useForm({
-        title: '',
-        content: ''
-    });
-
-    const storePost: FormEventHandler = (e) => {
-        e.preventDefault();
-
-        post(route('posts.store'), {
-            preserveScroll: true,
-            onSuccess: () => {
-                reset()
-                titleRef.current?.focus()
-            },
-        });
-    };
-
-    return (
-        <form onSubmit={storePost}>
-            <Card>
-                <CardHeader>
-                    <CardTitle>Create Post</CardTitle>
-                    <CardDescription>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, laborum?</CardDescription>
-                </CardHeader>
-                <CardContent className='space-y-4'>
-                    <div className='space-y-1.5'>
-                        <Label htmlFor="title">Title</Label>
-
-                        <Input
-                            ref={titleRef}
-                            id="title"
-                            name="title"
-                            value={data.title}
-                            onChange={(e) => setData('title', e.target.value)}
-                            className="block w-full"
-                        />
-
-                        <InputError message={errors.title} className="mt-2" />
-                    </div>
-                    <div className='space-y-1.5'>
-                        <Label htmlFor="content">Content</Label>
-                        <Input
-                            id="content"
-                            name="content"
-                            value={data.content}
-                            onChange={(e) => setData('content', e.target.value)}
-                            className="block w-full"
-                        />
-
-                        <InputError message={errors.content} className="mt-2" />
-                    </div>
-                </CardContent>
-                <CardFooter>
-                    <Button disabled={processing}>Create Post</Button>
-                </CardFooter>
-            </Card>
-
-        </form>
     );
 }
